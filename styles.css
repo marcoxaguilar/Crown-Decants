@@ -844,3 +844,25 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* ============ SHOPIFY BUY BUTTON OVERRIDES ============ */
+.buy-button-container {
+  margin-top: 10px;
+}
+.buy-button-container iframe {
+  width: 100% !important;
+}
+.shopify-buy__btn-wrapper {
+  margin-top: 4px !important;
+}
+.shopify-buy__option-select-wrapper {
+  margin-bottom: 4px !important;
+}
+/* Product cards are no longer links */
+.product-card {
+  cursor: default;
+}
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
