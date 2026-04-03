@@ -891,3 +891,17 @@ body {
   transform: translateY(-4px);
   box-shadow: 0 20px 40px rgba(0,0,0,0.08);
 }
+
+/* ============ DYNAMIC PRODUCT LOADING ============ */
+.products-loading {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+}
+.products-loading p {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
