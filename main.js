@@ -106,6 +106,70 @@ document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el)
     return 'Crown Decants';
   }
 
+  // ---- Tag-based filtering ----
+  // Owner adds these tags in Shopify: mens, womens, niche, bundle
+  // "under10" is auto-detected by price
+  function getProductTags(product) {
+    var tags = (product.tags || []).map(function(t) { return t.toLowerCase().trim(); });
+    var lowest = getLowestPrice(product.variants.edges);
+
+    // Auto-add "under10" if lowest variant is under $10
+    if (lowest < 10) tags.push('under10');
+
+    return tags;
+  }
+
+  // Global filter state
+  var currentFilter = 'all';
+  var allProductsData = [];
+
+  // Filter function — called by filter pills and collection cards
+  window.filterProducts = function(category) {
+    currentFilter = category;
+
+    // Update active pill
+    var pills = document.querySelectorAll('.filter-pill');
+    pills.forEach(function(pill) {
+      pill.classList.remove('active');
+      if (pill.getAttribute('onclick').indexOf("'" + category + "'") !== -1) {
+        pill.classList.add('active');
+      }
+    });
+
+    // Show/hide product cards
+    var cards = document.querySelectorAll('.product-card');
+    var visibleCount = 0;
+
+    cards.forEach(function(card) {
+      var tags = card.getAttribute('data-tags') || '';
+      var show = false;
+
+      if (category === 'all') {
+        show = true;
+      } else {
+        show = tags.indexOf(category) !== -1;
+      }
+
+      if (show) {
+        card.classList.remove('filter-hidden');
+        visibleCount++;
+      } else {
+        card.classList.add('filter-hidden');
+      }
+    });
+
+    // Update count display
+    var countEl = document.getElementById('filter-count');
+    if (countEl) {
+      if (category === 'all') {
+        countEl.textContent = visibleCount + ' fragrances';
+      } else {
+        var label = { mens: "Men's", womens: "Women's", niche: 'Niche', under10: 'Under $10', bundles: 'Bundles' };
+        countEl.textContent = visibleCount + ' ' + (label[category] || '') + ' fragrance' + (visibleCount !== 1 ? 's' : '');
+      }
+    }
+  };
+
   function getLowestPrice(variants) {
     var lowest = Infinity;
     for (var i = 0; i < variants.length; i++) {
@@ -125,7 +189,7 @@ document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el)
 
   // Fetch all products from Storefront API
   function fetchProducts() {
-    var query = '{ products(first: 100, sortKey: BEST_SELLING) { edges { node { id title handle availableForSale priceRange { minVariantPrice { amount currencyCode } } variants(first: 20) { edges { node { id title price { amount currencyCode } availableForSale } } } images(first: 1) { edges { node { url altText } } } } } } }';
+    var query = '{ products(first: 100, sortKey: BEST_SELLING) { edges { node { id title handle tags productType availableForSale priceRange { minVariantPrice { amount currencyCode } } variants(first: 20) { edges { node { id title price { amount currencyCode } availableForSale } } } images(first: 1) { edges { node { url altText } } } } } } }';
 
     return fetch(GRAPHQL_URL, {
       method: 'POST',
@@ -175,6 +239,10 @@ document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el)
       card.className = 'product-card reveal';
       card.setAttribute('data-handle', product.handle);
 
+      // Store tags for filtering
+      var tags = getProductTags(product);
+      card.setAttribute('data-tags', tags.join(','));
+
       card.innerHTML =
         '<div class="product-img">' +
           (imageUrl ? '<img src="' + imageUrl + '&width=533" alt="' + imageAlt + '" class="product-img-photo" loading="lazy">' : '') +
@@ -196,6 +264,20 @@ document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el)
 
     // After rendering cards, initialize Buy Buttons
     initBuyButtons(products);
+
+    // Add filter count below the grid
+    var section = document.getElementById('products');
+    var countEl = document.createElement('p');
+    countEl.id = 'filter-count';
+    countEl.className = 'filter-count';
+    countEl.textContent = products.length + ' fragrances';
+    var grid = document.getElementById('products-grid');
+    grid.parentNode.insertBefore(countEl, grid.nextSibling);
+
+    // Apply current filter (in case user clicked a collection card before products loaded)
+    if (currentFilter !== 'all') {
+      filterProducts(currentFilter);
+    }
   }
 
   // Initialize Shopify Buy Buttons for all rendered products

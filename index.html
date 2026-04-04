@@ -152,17 +152,17 @@
     <p class="section-sub">From designer staples to exclusive niche houses — find your next signature scent.</p>
   </div>
   <div class="collections-grid">
-    <a class="collection-card cc-mens reveal" href="#products">
+    <a class="collection-card cc-mens reveal" href="#products" onclick="filterProducts('mens')">
       <div class="collection-card-bg"></div>
       <div class="collection-card-overlay"></div>
       <div class="collection-card-content">
         <div class="collection-card-tag">Most Popular</div>
         <div class="collection-card-title">Men's Cologne Decants</div>
-        <div class="collection-card-count">25+ fragrances</div>
+        <div class="collection-card-count">Designer & niche</div>
         <div class="collection-card-arrow">Shop Now →</div>
       </div>
     </a>
-    <a class="collection-card cc-womens reveal" href="#">
+    <a class="collection-card cc-womens reveal" href="#products" onclick="filterProducts('womens')">
       <div class="collection-card-bg"></div>
       <div class="collection-card-overlay"></div>
       <div class="collection-card-content">
@@ -172,7 +172,7 @@
         <div class="collection-card-arrow">Shop Now →</div>
       </div>
     </a>
-    <a class="collection-card cc-niche reveal" href="#">
+    <a class="collection-card cc-niche reveal" href="#products" onclick="filterProducts('niche')">
       <div class="collection-card-bg"></div>
       <div class="collection-card-overlay"></div>
       <div class="collection-card-content">
@@ -182,17 +182,17 @@
         <div class="collection-card-arrow">Shop Now →</div>
       </div>
     </a>
-    <a class="collection-card cc-under10 reveal" href="#">
+    <a class="collection-card cc-under10 reveal" href="#products" onclick="filterProducts('under10')">
       <div class="collection-card-bg"></div>
       <div class="collection-card-overlay"></div>
       <div class="collection-card-content">
         <div class="collection-card-tag">Value</div>
         <div class="collection-card-title">Under $10</div>
-        <div class="collection-card-count">20+ affordable picks</div>
+        <div class="collection-card-count">Affordable picks</div>
         <div class="collection-card-arrow">Shop Now →</div>
       </div>
     </a>
-    <a class="collection-card cc-bundles reveal" href="#">
+    <a class="collection-card cc-bundles reveal" href="#products" onclick="filterProducts('bundles')">
       <div class="collection-card-bg"></div>
       <div class="collection-card-overlay"></div>
       <div class="collection-card-content">
@@ -202,13 +202,13 @@
         <div class="collection-card-arrow">Shop Now →</div>
       </div>
     </a>
-    <a class="collection-card cc-best reveal" href="#">
+    <a class="collection-card cc-best reveal" href="#products" onclick="filterProducts('all')">
       <div class="collection-card-bg"></div>
       <div class="collection-card-overlay"></div>
       <div class="collection-card-content">
         <div class="collection-card-tag">Trending</div>
-        <div class="collection-card-title">Best Sellers</div>
-        <div class="collection-card-count">Top-rated picks</div>
+        <div class="collection-card-title">All Decants</div>
+        <div class="collection-card-count">View everything</div>
         <div class="collection-card-arrow">Shop Now →</div>
       </div>
     </a>
@@ -221,6 +221,14 @@
     <div class="section-label">Our Collection</div>
     <h2 class="section-title">All Fragrance Decants</h2>
     <p class="section-sub">Select your size and add to cart — checkout happens right here on our site.</p>
+  </div>
+  <div class="filter-bar" id="filter-bar">
+    <button class="filter-pill active" onclick="filterProducts('all')">All</button>
+    <button class="filter-pill" onclick="filterProducts('mens')">Men's</button>
+    <button class="filter-pill" onclick="filterProducts('womens')">Women's</button>
+    <button class="filter-pill" onclick="filterProducts('niche')">Niche</button>
+    <button class="filter-pill" onclick="filterProducts('under10')">Under $10</button>
+    <button class="filter-pill" onclick="filterProducts('bundles')">Bundles</button>
   </div>
   <div class="products-grid" id="products-grid">
     <div class="products-loading" id="products-loading">
@@ -240,7 +248,7 @@
     <div class="reveal">
       <div class="how-step-num">01</div>
       <div class="how-step-title">Choose Your Decant</div>
-      <div class="how-step-desc">Browse 30+ fragrances from Creed, Dior, YSL, Versace, and more. Pick your size — 2ml, 5ml, or 10ml.</div>
+      <div class="how-step-desc">Browse 30+ fragrances from Creed, Dior, YSL, Versace, and more. Pick your size — 3ml, 5ml, 10ml, or 30ml.</div>
     </div>
     <div class="reveal">
       <div class="how-step-num">02</div>
@@ -316,7 +324,7 @@
     </div>
     <div class="faq-item reveal">
       <button class="faq-question" onclick="toggleFaq(this)">What sizes do you offer? <span class="faq-icon">+</span></button>
-      <div class="faq-answer"><div class="faq-answer-inner">Most decants are available in 2mL, 5mL, and 10mL sizes. Select products also come in larger sizes. Check individual product pages for availability.</div></div>
+      <div class="faq-answer"><div class="faq-answer-inner">Our decants are available in 3mL, 5mL, 10mL, and 30mL sizes. Not all sizes are available for every fragrance — check the product listing for available options.</div></div>
     </div>
     <div class="faq-item reveal">
       <button class="faq-question" onclick="toggleFaq(this)">How long does a decant last? <span class="faq-icon">+</span></button>

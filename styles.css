@@ -905,3 +905,45 @@ body {
   0%, 100% { opacity: 0.4; }
   50% { opacity: 1; }
 }
+
+/* ============ FILTER BAR ============ */
+.filter-bar {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  padding: 0 20px;
+}
+.filter-pill {
+  padding: 10px 22px;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border: 1.5px solid rgba(0,0,0,0.12);
+  background: transparent;
+  color: var(--medium-gray);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.filter-pill:hover {
+  border-color: var(--gold);
+  color: var(--charcoal);
+}
+.filter-pill.active {
+  background: var(--charcoal);
+  color: var(--white);
+  border-color: var(--charcoal);
+}
+.product-card.filter-hidden {
+  display: none !important;
+}
+.filter-count {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 13px;
+  color: var(--light-gray);
+  letter-spacing: 1px;
+}
